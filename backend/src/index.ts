@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import mongoose from "mongoose"
 import { productRouter } from "./routers/productRouter"
 import { seedRouter } from "./routers/seedRouter"
+import { userRouter } from "./routers/userRouter"
 
 //to connect to env file
 dotenv.config()
@@ -30,6 +31,9 @@ app.use(
   })
 )
 
+//to reach to the body of post requests inside the apihandler
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 // with this api we reach to backend like that>> http://localhost:4000/api/products to get to products
 // app.get("/api/products", (req: Request, res: Response) => {
 //   res.json(sampleProducts)
@@ -40,6 +44,7 @@ app.use(
 // })
 
 app.use("/api/products", productRouter)
+app.use("/api/users", userRouter)
 // >> http://localhost:4000/api/seed
 app.use("/api/seed", seedRouter)
 
